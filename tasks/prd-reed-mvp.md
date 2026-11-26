@@ -355,6 +355,7 @@ Stories are grouped by release and area. "User" means a signed-in Reed user. UI 
 **Acceptance Criteria:**
 - [ ] A reading session starts when the reader is in the foreground
 - [ ] Time counts as active only while the reader is in the foreground **and** the user scrolled/tapped within the last 60s; idle time beyond 60s is excluded
+  - _Clarification:_ a gap of ≤ 60s between two marks (start, return to foreground, scroll/tap, end) counts in full; a gap > 60s counts as 0. This is what makes the "→ 1 min" test below hold.
 - [ ] Sessions are stored with `article_id`, `started_at`, `ended_at`, `active_seconds`, `mode = read` (and later `listen`), device
 - [ ] Unit tests: 5 min with scrolling every 20s → ~5 min; 5 min with no interaction after 1 min → 1 min
 - [ ] Typecheck/lint passes
