@@ -20,3 +20,15 @@ jobs:
         run: npm run typecheck
       - name: Unit tests
         run: npm test
+
+  database:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: supabase/setup-cli@v1
+        with:
+          version: 3.4.0
+      - name: Apply migrations to an empty database
+        run: supabase db start
+      - name: Database tests (pgTAP)
+        run: supabase test db
