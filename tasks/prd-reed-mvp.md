@@ -411,6 +411,7 @@ Stories are grouped by release and area. "User" means a signed-in Reed user. UI 
 **Acceptance Criteria:**
 - [ ] Runs every Monday (or the user's chosen day) at 08:00 local time on the previous 7 days, excluding rest days (US-034)
 - [ ] Increase: goal hit on ≥ 5 of 7 days → proposed goal = max(goal + 5, 7-day average rounded **up** to next 5)
+  - _Clarification:_ with rest days, the threshold scales to ceil(5/7 × counted days) (e.g. 2 rest days → 4 of 5). If every day is a rest day, there is no proposal.
 - [ ] Decrease: 7-day average < 50% of goal → proposed goal = goal − 5
 - [ ] Otherwise no proposal (the card says "Goal stays at X min")
 - [ ] Bounds 5–60 min
