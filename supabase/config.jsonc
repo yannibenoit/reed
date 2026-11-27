@@ -190,7 +190,7 @@
     // The public URL that Auth serves on. Defaults to the API external URL with `/auth/v1` appended.
     // "external_url": "",
     // A list of *exact* URLs that auth providers are permitted to redirect to post authentication.
-    "additional_redirect_urls": ["https://127.0.0.1:3000"],
+    "additional_redirect_urls": ["http://localhost:8081/auth/callback", "reed://auth/callback", "exp://**"],
     // How long tokens are valid for, in seconds. Defaults to 3600 (1 hour), maximum 604,800 (1 week).
     "jwt_expiry": 3600,
     // JWT issuer URL. If not set, defaults to auth.external_url.
@@ -378,10 +378,23 @@
     // Use an external OAuth provider. The full list of providers are: `apple`, `azure`, `bitbucket`,
     // `discord`, `facebook`, `github`, `gitlab`, `google`, `keycloak`, `linkedin_oidc`, `notion`, `twitch`,
     // `twitter`, `x`, `slack_oidc`, `spotify`, `workos`, `zoom`.
+    // US-002: Apple + Google. Local dev keeps them off unless you export the env vars below
+    // and flip "enabled"; dev/prod projects are configured in the Supabase dashboard.
     "external": {
+      "google": {
+        "enabled": false,
+        "client_id": "env(SUPABASE_AUTH_EXTERNAL_GOOGLE_CLIENT_ID)",
+        "secret": "env(SUPABASE_AUTH_EXTERNAL_GOOGLE_SECRET)",
+        "redirect_uri": "",
+        "url": "",
+        // Required for local sign in with Google.
+        "skip_nonce_check": true,
+        "email_optional": false
+      },
       "apple": {
         "enabled": false,
-        "client_id": "",
+        // Comma-separated: the Services ID (web) and the iOS bundle id app.reed.ios (native id tokens).
+        "client_id": "env(SUPABASE_AUTH_EXTERNAL_APPLE_CLIENT_ID)",
         // DO NOT commit your OAuth provider secret to git. Use environment variable substitution instead:
         "secret": "env(SUPABASE_AUTH_EXTERNAL_APPLE_SECRET)",
         // Overrides the default auth callback URL derived from auth.external_url.

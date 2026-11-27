@@ -16,7 +16,8 @@
     "db:stop": "supabase stop",
     "db:reset": "supabase db reset",
     "db:test": "supabase test db",
-    "db:types": "supabase gen types typescript --local --schema public > packages/core/src/database.types.ts"
+    "db:types": "supabase gen types typescript --local --schema public > packages/core/src/database.types.ts",
+    "db:test:auth": "node --test supabase/tests/integration/*.test.mjs"
   },
   "engines": {
     "node": ">=22"

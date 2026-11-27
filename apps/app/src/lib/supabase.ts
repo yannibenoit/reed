@@ -2,7 +2,7 @@ import 'react-native-url-polyfill/auto';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import type { Database } from '@reed/core';
 import { createClient } from '@supabase/supabase-js';
-import { Platform } from 'react-native';
+import { AppState, Platform } from 'react-native';
 
 import { env, isSupabaseConfigured } from './env';
 
@@ -19,6 +19,16 @@ export const supabase = createClient<Database>(
       autoRefreshToken: true,
       persistSession: true,
       detectSessionInUrl: Platform.OS === 'web',
+      // PKCE: OAuth and magic links come back with ?code=, exchanged on this device.
+      flowType: 'pkce',
     },
   },
 );
+
+// Native apps only refresh tokens while in the foreground (Supabase RN guidance).
+if (Platform.OS !== 'web') {
+  AppState.addEventListener('change', (state) => {
+    if (state === 'active') supabase.auth.startAutoRefresh();
+    else supabase.auth.stopAutoRefresh();
+  });
+}
