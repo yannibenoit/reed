@@ -32,3 +32,12 @@ jobs:
         run: supabase db start
       - name: Database tests (pgTAP)
         run: supabase test db
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Start auth + API for the two-account RLS test
+        run: supabase start -x studio,imgproxy,storage-api,realtime,edge-runtime,logflare,vector,supavisor,postgres-meta
+      - name: RLS with two real accounts (US-002)
+        run: npm run db:test:auth
