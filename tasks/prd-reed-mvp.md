@@ -43,10 +43,10 @@ Stories are grouped by release and area. "User" means a signed-in Reed user. UI 
 
 **Acceptance Criteria:**
 - [ ] Expo (React Native) app with React Native Web runs on iOS simulator, Android emulator and in a desktop browser
-- [ ] TypeScript strict mode is on; a shared `packages/core` package holds types and logic used by the app, the backend functions and the Chrome extension
+- [x] TypeScript strict mode is on; a shared `packages/core` package holds types and logic used by the app, the backend functions and the Chrome extension
 - [ ] Supabase project connected (dev + prod environments, keys from env vars, never committed)
-- [ ] Lint, typecheck and unit tests run in CI on every push
-- [ ] Typecheck/lint passes
+- [x] Lint, typecheck and unit tests run in CI on every push
+- [x] Typecheck/lint passes
 
 #### US-002: Sign up and sign in ([#2](https://github.com/yannibenoit/reed/issues/2))
 **Description:** As a user, I want an account so that my library and progress sync across devices.
